@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 4: PERCABANGAN - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 4: PERCABANGAN (IF-ELSE)</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. PENGENALAN IF</h2>
+                <p>Dalam C++, <code>if</code> (jika) digunakan untuk membuat keputusan. Kode di dalam tanda kurung kurawal <code>{ }</code> hanya akan dijalankan <b>JIKA</b> kondisinya bernilai benar (<i>true</i>).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Buat variabel <code>int level = 10;</code>. <br>Buatlah struktur: <code>if (level > 5) { ... }</code>. <br>Di dalam tanda kurung kurawal tersebut, cetaklah teks: <span class="highlight">Akses Diberikan</span></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. OPERASI MODULO (%)</h2>
+                <p>Modulo (disimbolkan dengan <code>%</code>) adalah operasi untuk mencari <b>sisa hasil bagi</b>. Ini sangat sering dipakai untuk mengecek apakah suatu angka genap atau ganjil.</p>
+                <p>Contoh: <code>10 % 3</code> hasilnya adalah 1 (karena 10 dibagi 3 adalah 9, sisanya 1). Sedangkan <code>10 % 2</code> hasilnya 0 (karena habis dibagi).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Hapus kode Latihan 1. Buat variabel <code>int kode = 7;</code>. Cetak hasil dari <code>kode % 2</code> menggunakan <code>cout</code>.</p>
+                    <p><i>Output yang diharapkan: 1</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. PERKENALAN ELSE</h2>
+                <p>Bagaimana jika kondisi <code>if</code> bernilai salah (<i>false</i>)? Di sinilah kita menggunakan <code>else</code> (jika tidak). <code>else</code> adalah rencana cadangan jika <code>if</code> gagal memenuhi syarat.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Hapus kodemu. Buat <code>int level = 3;</code>. <br>Gunakan <code>if (level > 5)</code> untuk mencetak "Akses Diberikan". <br>Lalu tambahkan blok <code>else { ... }</code> di bawahnya untuk mencetak <span class="highlight">Akses Ditolak</span>.</p>
+                    <p><i>Output yang diharapkan: Akses Ditolak (karena 3 tidak lebih besar dari 5).</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-4">
+                <h2>4. PERKENALAN ELSE IF</h2>
+                <p>Jika kita memiliki banyak kondisi bertingkat, gunakan <code>else if</code>. Program akan mengecek dari atas ke bawah, dan berhenti begitu menemukan satu kondisi yang benar.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 4</h3>
+                    <p>Buat <code>int poin = 75;</code>. Buat percabangan:<br>
+                    - Jika poin >= 90 cetak "Gold"<br>
+                    - <b>Else if</b> poin >= 70 cetak <span class="highlight">Silver</span><br>
+                    - <b>Else</b> cetak "Bronze"</p>
+                    <p><i>Output yang diharapkan: Silver</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-5">
+                <h2>5. PENDALAMAN EKSPRESI BOOLEAN</h2>
+                <p>Untuk mengecek kondisi ganda, kita menggunakan operator logika:<br>
+                - <code>&&</code> (AND): <b>Keduanya</b> harus benar.<br>
+                - <code>||</code> (OR): <b>Salah satu</b> saja benar, maka diterima.<br>
+                - <code>==</code> : Apakah <b>SAMA DENGAN</b>?<br>
+                - <code>!=</code> : Apakah <b>TIDAK SAMA DENGAN</b>?</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 5</h3>
+                    <p>Buat <code>int pin = 1234;</code> dan <code>int rfid = 99;</code>.<br>
+                    Buat <code>if</code> dengan kondisi: <code>(pin == 1234 && rfid == 100)</code> untuk mencetak "Masuk". Tambahkan <code>else</code> untuk mencetak <span class="highlight">Blokir</span>.</p>
+                    <p><i>Output yang diharapkan: Blokir (karena RFID salah).</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-6">
+                <h2>6. STUDI KASUS: ANALISIS NODE SERVER</h2>
+                <p>Kalian sedang menyusup ke matriks pusat yang memiliki 3 Node Server data utama. Untuk melumpuhkan sistem, kalian harus menyerang Node dengan lalu lintas data terbesar lebih dulu, dan Node terkecil paling akhir.</p>
+                <p>Berikut adalah beban lalu lintas datanya:<br>
+                - <b>Node A:</b> berukuran 364 x 79 TB.<br>
+                - <b>Node B:</b> berukuran 243 x 99 TB.<br>
+                - <b>Node C:</b> berukuran 189 x 155 TB.</p>
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 4</h3>
+                    <p>Hapus semua kode sebelumnya. Hitunglah luas data ketiga Node tersebut dan simpan dalam variabel. Lalu, <b>buatlah struktur percabangan logika ganda (menggunakan <code>&&</code>, <code>></code>, dan <code><</code>)</b> untuk membandingkan ketiga Node tersebut dan mencari mana yang paling besar serta mana yang paling kecil.</p>
+                    <p>Cetak hasilnya menjadi dua baris persis seperti format di bawah ini:</p>
+                    <pre class="target-output" id="target-output">
+Terbesar: Node C
+Terkecil: Node B</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menunggu inisialisasi modul logika...</pre>
+        </div>
+
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN BAB 4 SELESAI ]</h2>
+            <p>Logika komparasi sukses dijalankan. Masukkan identitas agen Anda.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X IPA 1" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+
+    <script src="compiler_bab4.js"></script>
+</body>
+</html>

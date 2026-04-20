@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 3: PERULANGAN - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 3: PERULANGAN (WHILE)</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. OPERASIONAL ASSIGNMENT</h2>
+                <p>Sebelum masuk ke perulangan, kita belajar jalan pintas. Daripada menulis <code>x = x + 5;</code>, kalian bisa menggunakan <code>x += 5;</code>.</p>
+                <p>Jika hanya ingin menambah 1, gunakan <b>Increment</b> (<code>++</code>). Contoh: <code>x++;</code> sama dengan <code>x = x + 1;</code>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Buat variabel <code>int energi = 10;</code>. Di bawahnya, gunakan <code>+= 5</code> untuk menambah energi. Di bawahnya lagi, gunakan <code>++</code> untuk menambah 1. Lalu cetak energinya.</p>
+                    <p><i>Output yang diharapkan: 16</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. PERKENALAN WHILE</h2>
+                <p>Perulangan <code>while</code> (selama) menyuruh komputer melakukan sesuatu berulang-ulang <b>selama</b> kondisinya bernilai benar (<i>true</i>).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Buat <code>int i = 1;</code>. Buat perulangan <code>while (i <= 3)</code>. Di dalam perulangan, cetak teks <b>"Hack...\n"</b>, dan JANGAN LUPA tambahkan <code>i++;</code> agar <i>loop</i> bisa berhenti!</p>
+                    <p><i>Output yang diharapkan:<br>Hack...<br>Hack...<br>Hack...</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. PENDALAMAN WHILE</h2>
+                <p>Lupa menambahkan <code>i++;</code> akan menyebabkan <b>Infinite Loop</b> (Sistem Hang). Mari kita coba mencetak variabel pelacaknya langsung agar terlihat jelas progresnya.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Ubah kodemu. Alih-alih mencetak teks "Hack...", cetaklah nilai variabel <code>i</code> itu sendiri diikuti dengan baris baru (<code>\n</code>).</p>
+                    <p><i>Output yang diharapkan:<br>1<br>2<br>3</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-4">
+                <h2>4. STUDI KASUS 1: HITUNG MUNDUR</h2>
+                <p>Untuk mengulang dari angka besar ke kecil, ubah kondisi awalnya menjadi besar, dan gunakan <code>--</code> (kurang 1) di dalam <i>loop</i>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 4</h3>
+                    <p>Buat <code>int waktu = 3;</code>. Gunakan <code>while</code> untuk mencetak angka dari 3 sampai 1 (menurun). <b>SETELAH</b> <i>loop</i> selesai, cetak teks "BOOM!".</p>
+                    <p><i>Output yang diharapkan:<br>3<br>2<br>1<br>BOOM!</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-5">
+                <h2>5. STUDI KASUS 2: DERET KELIPATAN</h2>
+                <p>Di dalam <i>loop</i>, kita bisa menggunakan <code>+= 10</code> untuk melompat 10 angka pada setiap putaran.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 5</h3>
+                    <p>Gunakan <code>while</code> untuk mencetak kelipatan 10, dari angka 10 hingga 50 (berhenti di 50). Gunakan <code>+= 10</code>.</p>
+                    <p><i>Output yang diharapkan:<br>10<br>20<br>30<br>40<br>50</i></p>
+                </div>
+            </section>
+            
+            <section class="cyber-panel locked-section" id="section-6">
+                <h2>6. STUDI KASUS 3: AKUMULASI (PENJUMLAHAN)</h2>
+                <p>Untuk menghitung total dari serangkaian angka, buat "kotak penampung" di luar <i>loop</i> (contoh: <code>total = 0;</code>), lalu tambahkan isinya terus-menerus di dalam <i>loop</i>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 6</h3>
+                    <p>Hitung total dari 1 + 2 + 3 + 4 + 5. <br>Gunakan variabel pelacak <code>angka</code>, dan variabel akumulasi <code>total</code>. Di akhir program (di luar loop), cetak hasil penjumlahannya.</p>
+                    <p><i>Output yang diharapkan: Total: 15</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-7">
+                <h2>7. STUDI KASUS ULTIMATE: PABRIK MECHA</h2>
+                <p>Panglima memiliki resolusi tahun baru untuk memperbesar pasukannya. Setiap hari, dimulai dari <b>Hari ke-1</b> sampai seterusnya, pabrik otomatis akan memproduksi:</p>
+                <ul>
+                    <li>1 unit <b>Mecha-Spider</b>.</li>
+                    <li><b>Nano-Bot</b> sebanyak angka hari tersebut (Hari 1 = 1 unit, Hari 2 = 2 unit, dst).</li>
+                </ul>
+                <p>Pabrik ini akan terus beroperasi memproduksi robot setiap hari, sampai kondisi ini terpenuhi: <b>Jumlah Nano-Bot <u>lebih dari</u> 10 kali lipat jumlah Mecha-Spider.</b></p>
+                
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 3</h3>
+                    <p>Pada hari ke berapakah pertama kalinya pabrik tidak perlu beroperasi lagi? Lengkapi kode matriks kalian untuk mencari tahu jawabannya!</p>
+                    <p><i>Hint: Gunakan variabel pelacak <code>mecha = 0</code>, <code>nano = 0</code>, dan <code>hari = 1</code>. Syarat berjalannya pabrik adalah <code>while (nano <= 10 * mecha)</code>.</i></p>
+                    <pre class="target-output" id="target-output">
+Hari Berhenti: 21</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menyiapkan mesin virtual perulangan...</pre>
+        </div>
+
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN BAB 3 SELESAI ]</h2>
+            <p>Logika matriks perulangan telah dipecahkan. Silakan laporkan identitas Anda.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X IPA 1" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+
+    <script src="compiler_bab3.js"></script>
+</body>
+</html>

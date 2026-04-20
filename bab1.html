@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 1: OUTPUT & EKSPRESI - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 1: OUTPUT & EKSPRESI</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. PRINT MENGGUNAKAN std::cout</h2>
+                <p>Dalam C++, kita membutuhkan pustaka <code>&lt;iostream&gt;</code> untuk mencetak sesuatu ke layar. Perintah dasarnya adalah <code>std::cout</code> diikuti oleh tanda <code>&lt;&lt;</code>.</p>
+                <p>Syarat utama: Teks (string) wajib diapit tanda kutip ganda <code>" "</code> dan setiap baris perintah diakhiri dengan titik koma <code>;</code>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Ubah kode di editor sebelah kanan agar mencetak teks: <span class="highlight">Sistem Aktif!</span></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. PRINT BILANGAN & BARIS BARU</h2>
+                <p>Untuk mencetak angka (integer), kalian <b>tidak perlu</b> menggunakan tanda kutip. Komputer membaca angka murni berbeda dengan teks.</p>
+                <p>Selain itu, untuk memindahkan teks ke baris bawah (Enter), gunakan <code>\n</code> di dalam tanda kutip teks kalian.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Di bawah baris kode Latihan 1, tambahkan perintah baru untuk mencetak angka <span class="highlight">2025</span>.</p>
+                    <p><i>Pastikan Latihan 1 diakhiri dengan <code>\n</code> agar angka 2025 berada di baris baru.</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. OPERASI BILANGAN (EKSPRESI)</h2>
+                <p>C++ bisa langsung menghitung matematika di dalam <code>std::cout</code>. Gunakan simbol <code>+</code> (tambah), <code>-</code> (kurang), <code>*</code> (kali), dan <code>/</code> (bagi).</p>
+                <p>Contoh: <code>std::cout &lt;&lt; 10 * 5;</code> akan langsung mencetak angka 50 di layar terminal.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Cetak hasil dari operasi matematika: <span class="highlight">100 + 50 * 2</span>.</p>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-4">
+                <h2>4. STUDI KASUS: MERETAS SERVER GRID</h2>
+                <p>Kalian menemukan sebuah brankas data rahasia. Untuk membukanya, sistem meminta dua baris kode sandi berupa luas dan keliling dari ruangan <i>Server Grid Sektor 7</i> yang memiliki <b>panjang 364 meter</b> dan <b>lebar 79 meter</b>.</p>
+                <p>Bantulah meretas sistem ini dengan membuat program C++ yang menghitung:</p>
+                <ul>
+                    <li><b>Baris pertama:</b> Luas Server Grid (hasil perkalian panjang dan lebar).</li>
+                    <li><b>Baris kedua:</b> Keliling Server Grid (dua kali dari hasil penjumlahan panjang dan lebar).</li>
+                </ul>
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 1</h3>
+                    <p><b>PENTING:</b> Hapus semua kode latihan sebelumnya di editor kalian. Kalian WAJIB membiarkan C++ yang menghitung angkanya (gunakan operator matematika <code>*</code> dan <code>+</code> di dalam <code>std::cout</code>).</p>
+                    <p><i>Hint: Gunakan tanda kurung <code>( )</code> pada penjumlahan keliling agar dihitung lebih dulu oleh komputer sebelum dikali dua!</i></p>
+                    <pre class="target-output" id="target-output">
+Luas Grid: 28756
+Keliling Grid: 886</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    std::cout << "Halo, Dunia!\n";
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menunggu eksekusi program...</pre>
+        </div>
+
+    </div>
+
+    <script src="compiler.js"></script>
+
+<div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN SELESAI ]</h2>
+            <p>Akses Server Grid berhasil dibuka. Masukkan identitas agen untuk merekam jejak di matriks.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X A" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+</body>
+</html>

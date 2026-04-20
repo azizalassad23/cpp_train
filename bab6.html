@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 6: ARRAY (LARIK) - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 6: ARRAY (PENYIMPANAN MATRIKS)</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. PENGENALAN ARRAY</h2>
+                <p>Array adalah sebuah loker penyimpanan panjang yang bisa menyimpan banyak data dengan <b>tipe yang sama</b> dalam satu nama variabel. Ingat: Indeks array di C++ <b>selalu dimulai dari 0</b>, bukan 1.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Buat array: <code>int node[3] = {10, 50, 99};</code> <br>Cetak isi loker kedua (angka 50). <i>Hint: Gunakan indeks [1].</i></p>
+                    <p><i>Output: 50</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. PASAR GELAP NODE (Toko Kandang I)</h2>
+                <p>Daripada mencetak array satu per satu (<code>node[0]</code>, <code>node[1]</code>), kita bisa mengkombinasikan Array dengan <code>for loop</code> untuk memindai seluruh data secara instan!</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Buat array: <code>int kapasitas[5] = {10, 20, 30, 40, 50};</code>. Gunakan <code>for</code> loop (dari i=0 sampai 4) untuk mencetak semuanya. Beri spasi antar angka.</p>
+                    <p><i>Output: 10 20 30 40 50</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. KAPASITAS TERBESAR (Kandang Terbesar)</h2>
+                <p>Untuk mencari data terbesar di dalam matriks, kita butuh variabel sementara (misal: <code>max</code>). Bandingkan isi array satu per satu menggunakan <code>if</code> di dalam <i>loop</i>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Diberikan array: <code>int daya[5] = {15, 42, 7, 99, 23};</code>. <br>Gunakan loop untuk mencari dan mencetak angka yang paling besar.</p>
+                    <p><i>Output: 99</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-4">
+                <h2>4. LALU LINTAS TRANSAKSI (Jual Beli Bebek)</h2>
+                <p>Seringkali kita harus mengakumulasikan seluruh data dalam array. Siapkan variabel penyimpan, misalnya <code>int total = 0;</code> lalu tambahkan isi array ke dalamnya satu per satu.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 4</h3>
+                    <p>Diberikan array: <code>int transfer[3] = {100, 200, 300};</code>. <br>Hitung jumlah total dari ketiga transaksi tersebut dengan <i>loop</i>, lalu cetak hasilnya.</p>
+                    <p><i>Output: 600</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-5">
+                <h2>5. TOGGLE SAKLAR MATRIKS (Bermain Lampu)</h2>
+                <p>Sebuah barisan node keamanan bisa disimbolkan dengan 1 (Aktif) dan 0 (Mati). Terkadang agen harus meretasnya dengan membalik kondisinya (<i>Toggle</i>).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 5</h3>
+                    <p>Diberikan array saklar: <code>int saklar[5] = {1, 0, 1, 1, 0};</code>. <br>Ubah yang 1 menjadi 0, dan yang 0 menjadi 1 menggunakan <code>if-else</code> di dalam <i>loop</i>. Cetak hasil array yang baru dengan spasi.</p>
+                    <p><i>Output: 0 1 0 0 1</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-6">
+                <h2>6. MELACAK NODE (Toko Kandang II)</h2>
+                <p>Ini disebut <i>Linear Search</i> (Pencarian Linear). Kalian harus menyisir array dari ujung ke ujung untuk menghitung seberapa sering sebuah nilai anomali muncul.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 6</h3>
+                    <p>Diberikan array log: <code>int log_error[5] = {12, 404, 89, 404, 77};</code>. <br>Hitunglah ada berapa banyak angka <code>404</code> di dalam log tersebut. Cetak jumlahnya.</p>
+                    <p><i>Output: 2</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-7">
+                <h2>7. MENGHAPUS JEJAK (Menutup Toko)</h2>
+                <p>Agen yang handal harus bisa memutarbalikkan jalur data untuk menutupi jejak pelarian. Caranya? Jalankan <code>for</code> loop secara mundur (dari indeks terbesar ke terkecil).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 7</h3>
+                    <p>Diberikan jejak: <code>int jejak[5] = {1, 2, 3, 4, 5};</code>. <br>Cetak array tersebut secara terbalik. <i>Hint: Mulai loop dari i = 4, turun ke i >= 0, gunakan i--</i>.</p>
+                    <p><i>Output: 5 4 3 2 1</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-8">
+                <h2>8. STUDI KASUS ULTIMATE: FILTER ANOMALI</h2>
+                <p>Sistem mendeteksi adanya beban data jaringan yang tidak seimbang di antara 5 Node Utama. Tugas kalian adalah:</p>
+                <ol class="cyber-list" style="margin-left: 20px;">
+                    <li>Menghitung nilai <b>rata-rata (average)</b> beban dari ke-5 Node tersebut.</li>
+                    <li>Mencetak <b>HANYA</b> Node yang bebannya berada <b>DI ATAS rata-rata</b> (Anomali).</li>
+                </ol>
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 6</h3>
+                    <p>Hapus semua kode sebelumnya. Gunakan array: <br><code>int beban[5] = {50, 120, 30, 150, 40};</code><br>
+                    Gunakan <i>loop</i> pertama untuk menghitung total & rata-rata. Lalu gunakan <i>loop</i> kedua yang dipadukan dengan <code>if</code> untuk mencetak angka yang lebih besar dari rata-rata.</p>
+                    <pre class="target-output" id="target-output">
+120
+150</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menunggu injeksi memori array...</pre>
+        </div>
+
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN BAB 6 SELESAI ]</h2>
+            <p>Pemrosesan struktur data Array berhasil. Laporkan status agen.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X IPA 1" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+
+    <script src="compiler_bab6.js"></script>
+</body>
+</html>

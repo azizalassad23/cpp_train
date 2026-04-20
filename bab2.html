@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 2: VARIABEL & TIPE DATA - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 2: VARIABEL & TIPE DATA</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. PENGGUNAAN namespace std</h2>
+                <p>Mengetik <code>std::</code> di setiap baris perintah tentu sangat merepotkan. Untuk menyederhanakannya, kita bisa mendeklarasikan <code>using namespace std;</code> tepat di bawah <code>#include &lt;iostream&gt;</code>.</p>
+                <p>Dengan perintah tersebut, komputer sudah tahu bahwa kita menggunakan pustaka standar. Kalian cukup mengetik <code>cout &lt;&lt; "Teks";</code> tanpa embel-embel <code>std::</code> lagi!</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Perhatikan editor di kanan, <code>using namespace std;</code> sudah disiapkan. Cetaklah teks berikut menggunakan <code>cout</code> yang lebih singkat: <span class="highlight">Namespace Aktif!</span></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. PERKENALAN VARIABEL (INT)</h2>
+                <p>Variabel adalah "kotak penyimpanan" di dalam memori. Sebelum menggunakannya, kita harus memesan tipe kotaknya.</p>
+                <p>Untuk menyimpan angka bulat, gunakan tipe <code>int</code> (Integer). Cara membuatnya: <code>int nama_kotak = isinya;</code></p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Hapus kode Latihan 1. Buatlah sebuah variabel <code>int</code> bernama <span class="highlight">tahun</span> dan beri nilai <b>2077</b>. Lalu cetak variabel tersebut (ingat, mencetak variabel <b>tidak memakai tanda kutip</b>).</p>
+                    <p><i>Output yang diharapkan: 2077</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. MEMPERBARUI NILAI VARIABEL</h2>
+                <p>Isi dari variabel bisa diubah (di-<i>update</i>) kapan saja dengan operasi matematika. Saat mengubah nilainya, kalian <b>tidak perlu</b> menulis <code>int</code> lagi.</p>
+                <p>Contoh update: <code>tahun = tahun + 3;</code> (Nilai tahun yang baru adalah nilai tahun yang lama ditambah 3).</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Lanjutkan kodemu dari Latihan 2. Tambahkan <code>\n</code> saat mencetak 2077. Kemudian di baris bawahnya, perbarui variabel <code>tahun</code> menjadi <b>2080</b>, lalu cetak lagi.</p>
+                    <p><i>Output yang diharapkan:<br>2077<br>2080</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-4">
+                <h2>4. TIPE DATA STRING</h2>
+                <p>Jika <code>int</code> untuk angka, maka tipe data <code>string</code> digunakan untuk menyimpan teks (huruf/kalimat).</p>
+                <p>Syaratnya, kalian wajib menambahkan <code>#include &lt;string&gt;</code> di baris paling atas agar mesin mengenali kotak teks ini.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 4</h3>
+                    <p>Hapus kode di dalam <code>main()</code>. Buatlah variabel <code>string</code> bernama <span class="highlight">senjata</span> dengan isi <b>"Katana"</b> (gunakan tanda kutip). Lalu cetak variabel tersebut.</p>
+                    <p><i>Output yang diharapkan: Katana</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-5">
+                <h2>5. STUDI KASUS: LOGISTIK PASUKAN</h2>
+                <p>Markas perlawanan saat ini memiliki <b>63 Drone</b> dan <b>192 Android</b>. Panglima akan melakukan rotasi logistik selama dua fase operasi:</p>
+                <p><b>Fase 1:</b><br>
+                - Markas memproduksi Android baru sebanyak total Drone yang ada, lalu...<br>
+                - Sepertiga (1/3) dari total Drone dihancurkan.</p>
+                <p><b>Fase 2:</b><br>
+                - Markas memproduksi Drone baru sebanyak total Android yang ada, lalu...<br>
+                - 10 Android ditarik dari peredaran (dikurangi).</p>
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 2</h3>
+                    <p>Hapus semua kode latihan sebelumnya. Buatlah variabel <code>int drone = 63;</code> dan <code>int android = 192;</code>. Lakukan pembaruan nilai variabel (<i>update</i>) selangkah demi selangkah sesuai cerita operasi di atas dengan operator matematika!</p>
+                    <p><i>Hint Fase 1: <code>android = android + drone;</code> lalu di bawahnya <code>drone = drone - (drone / 3);</code></i></p>
+                    <p>Berapakah total gabungan Drone dan Android saat ini? Cetak hasil penjumlahan akhir mereka!</p>
+                    <pre class="target-output" id="target-output">
+Total Unit: 542</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+// Tambahkan #include <string> di sini nanti untuk Latihan 4
+using namespace std;
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menunggu inisialisasi memori...</pre>
+        </div>
+
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN BAB 2 SELESAI ]</h2>
+            <p>Logika memori terverifikasi. Masukkan identitas agen untuk pembaruan <i>database</i>.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X A" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+
+    <script src="compiler_bab2.js"></script>
+</body>
+</html>

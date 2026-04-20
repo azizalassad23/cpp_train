@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAB 5: PERULANGAN & PERCABANGAN - C++ ACADEMY</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="chapter-body">
+
+    <div class="scanlines"></div>
+
+    <header class="chapter-header">
+        <a href="index.html" class="cyber-button-small"><< KEMBALI</a>
+        <h1 class="neon-title-small">BAB 5: KONSTRUKSI LOOP (FOR)</h1>
+        <div class="mission-status" id="mission-status">STATUS: STANDBY</div>
+    </header>
+
+    <div class="split-container">
+        
+        <div class="materi-panel">
+            
+            <section class="cyber-panel" id="section-1">
+                <h2>1. PENGENALAN FOR LOOP</h2>
+                <p>Jika <code>while</code> cocok untuk perulangan yang tidak pasti, <code>for</code> adalah raja untuk perulangan yang <b>sudah pasti</b> jumlahnya (misal: ulang 5 kali).</p>
+                <p>Strukturnya: <code>for (mulai; syarat; langkah)</code>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 1</h3>
+                    <p>Buat <code>for</code> yang dimulai dari <code>int i = 1</code>, berjalan selama <code>i <= 5</code>, dengan langkah <code>i++</code>. Cetak teks <span class="highlight">Scan...</span> diikuti baris baru.</p>
+                    <p><i>Output:<br>Scan...<br>Scan...<br>Scan...<br>Scan...<br>Scan...</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-2">
+                <h2>2. TIPE DATA BOOLEAN</h2>
+                <p>Tipe data <code>bool</code> hanya memiliki dua nilai: <b>true</b> (1) atau <b>false</b> (0). Ini sangat berguna untuk membuat "saklar" di dalam program.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 2</h3>
+                    <p>Buat variabel <code>bool status = true;</code>. Lalu buat percabangan <code>if</code>: <br>Jika <code>status</code> bernilai <i>true</i>, cetak <b>"Sistem Online"</b>. <br>Jika <i>false</i>, cetak <b>"Sistem Offline"</b>.</p>
+                    <p><i>Output: Sistem Online</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-3">
+                <h2>3. CONTINUE & BREAK</h2>
+                <p>Kita bisa mengendalikan aliran <i>loop</i> secara paksa:</p>
+                <ul>
+                    <li><code>continue</code>: "Lompati putaran ini, lanjut ke putaran berikutnya."</li>
+                    <li><code>break</code>: "Hentikan paksa seluruh perulangan sekarang juga!"</li>
+                </ul>
+                <div class="mission-box">
+                    <h3>> LATIHAN 3</h3>
+                    <p>Buat <i>loop</i> <code>for</code> dari 1 sampai 5. <br>Di dalam <i>loop</i>, tambahkan logika: <b>Jika <code>i == 3</code>, lakukan <code>continue;</code></b>. Selain itu, cetak angka <code>i</code>.</p>
+                    <p><i>Output yang diharapkan:<br>1<br>2<br>4<br>5</i></p>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-4">
+                <h2>4. STUDI KASUS: POLA SEGITIGA (POLA I)</h2>
+                <p>Mari memvisualisasikan data. Kita butuh <b>Nested Loop</b> (Loop bersarang). Loop luar (<code>i</code>) mengatur baris, Loop dalam (<code>j</code>) mengatur isi kolom per baris.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 4</h3>
+                    <p>Gunakan <code>for</code> bersarang untuk mencetak pola bintang setinggi 5 baris. <br><i>Hint: Loop luar <code>i=1 s/d 5</code>, Loop dalam <code>j=1 s/d i</code>. Pindah baris di akhir loop luar.</i></p>
+                    <pre class="target-output-mini">*
+**
+***
+****
+*****</pre>
+                </div>
+            </section>
+
+            <section class="cyber-panel locked-section" id="section-5">
+                <h2>5. STUDI KASUS: KOTAK BOLONG (POLA II)</h2>
+                <p>Kita akan membuat kotak ukuran 5x5, tapi bagian tengahnya kosong.</p>
+                <p>Logikanya: Cetak bintang HANYA JIKA kita sedang di <b>baris pertama</b>, <b>baris terakhir</b>, <b>kolom pertama</b>, atau <b>kolom terakhir</b>. Selain itu, cetak spasi <code>" "</code>.</p>
+                <div class="mission-box">
+                    <h3>> LATIHAN 5</h3>
+                    <p>Buat pola kotak kosong 5x5 menggunakan logika <code>if</code> di dalam <i>nested loop</i>.</p>
+                    <pre class="target-output-mini">*****
+*   *
+*   *
+*   *
+*****</pre>
+                </div>
+            </section>
+
+            <section class="cyber-panel case-study locked-section" id="section-6">
+                <h2>6. STUDI KASUS ULTIMATE: MATRIKS DINAMIS</h2>
+                <p>Pintu server utama dikunci menggunakan pola persilangan matriks berukuran <code>N x N</code>. Untuk memudahkan deteksi sistem, bagian yang kosong harus diisi dengan karakter titik (<code>.</code>).</p>
+                <p>Tantangan terbesar: Ukuran <code>N</code> bisa berubah-ubah! Kalian harus membuat rumus aljabar yang dinamis untuk mengecek kedua garis diagonal, bukan menebak angka secara manual.</p>
+                <div class="mission-box alert-box">
+                    <h3>> UJIAN AKHIR BAB 5</h3>
+                    <p>Hapus semua kode sebelumnya. Buat variabel <code>int N = 7;</code>. Buat <i>Nested Loop</i> berukuran N x N. Cetak bintang <code>*</code> pada diagonal utama dan diagonal samping. Cetak titik <code>.</code> untuk area sisanya.</p>
+                    <p><i>Hint: Diagonal utama terjadi saat <code>j == i</code>. Diagonal samping terjadi saat <code>j == (N + 1) - i</code>. Gunakan operator OR (<code>||</code>)!</i></p>
+                    <pre class="target-output" id="target-output">
+*.....*
+.*...*.
+..*.*..
+...*...
+..*.*..
+.*...*.
+*.....*</pre>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="compiler-panel">
+            <div class="editor-header">
+                <span>[ main.cpp ]</span>
+                <button id="run-btn" class="cyber-button-run" onclick="executeCode()">RUN</button>
+            </div>
+            
+            <textarea id="code-editor">
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Tulis kodemu di bawah ini:
+    
+    
+    return 0;
+}
+</textarea>
+            
+            <div class="terminal-header">
+                <span>> Output Terminal</span>
+            </div>
+            <pre id="terminal-output">Menunggu instruksi visualisasi...</pre>
+        </div>
+
+    </div>
+
+    <div id="success-modal" class="modal-overlay" style="display: none;">
+        <div class="cyber-modal">
+            <h2 class="neon-title-small" style="color: var(--neon-cyan);">[ UJIAN BAB 5 SELESAI ]</h2>
+            <p>Pola matriks dinamis berhasil diretas. Laporkan status agen.</p>
+            
+            <div class="input-group">
+                <label>> NAMA_AGEN:</label>
+                <input type="text" id="input-nama" placeholder="Ketik nama lengkap..." autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>> KELAS_SEKTOR:</label>
+                <input type="text" id="input-kelas" placeholder="Contoh: X IPA 1" autocomplete="off">
+            </div>
+            
+            <button id="submit-data-btn" class="cyber-button-run" style="width: 100%; margin-top: 20px;" onclick="sendDataToSpreadsheet()">
+                [ TRANSMIT_DATA ]
+            </button>
+            <p id="upload-status" style="text-align: center; margin-top: 10px; color: var(--neon-yellow);"></p>
+        </div>
+    </div>
+
+    <script src="compiler_bab5.js"></script>
+</body>
+</html>

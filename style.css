@@ -1,0 +1,427 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* ==================== WARNA & TEMA BARU ==================== */
+/* Menggunakan palet yang lebih kalem (soft neon) agar mata tidak sakit */
+:root {
+    --bg-dark: #0d1117;       /* Abu-abu kebiruan gelap, lebih lembut dari hitam pekat */
+    --neon-cyan: #39d353;     /* Hijau terminal yang nyaman (menggantikan Cyan terang) */
+    --neon-blue: #b974c7;     /* Biru aksen yang lembut */
+    --neon-pink: #ff7b72;     /* Merah muda pudar untuk peringatan/error */
+    --neon-yellow: #e3b341;   /* Kuning hangat untuk status/highlight */
+    --panel-bg: #161b22;      /* Warna panel yang solid agar teks mudah dibaca */
+    --text-color: #c9d1d9;    /* Abu-abu terang untuk teks materi, bukan putih pekat */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    font-family: 'VT323', monospace;
+    font-size: 1.4rem;
+    overflow-x: hidden;
+    /* Grid background dipertahankan tapi dibuat sangat tipis/halus */
+    background-image: 
+        linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    min-height: 100vh;
+}
+
+/* Efek Garis CRT diturunkan drastis intensitasnya agar tidak mengganggu */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 9998;
+    pointer-events: none;
+}
+
+/* ==================== LOADING SCREEN ==================== */
+#loader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+/* EFEK GLITCH DIHAPUS - Diganti dengan teks hijau bersih dan glow lembut */
+.glitch-text {
+    font-size: 3.5rem;
+    color: var(--neon-cyan);
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(57, 211, 83, 0.3); /* Glow sangat tipis */
+}
+
+#loading-status {
+    color: var(--text-color);
+    font-size: 1.6rem;
+}
+
+.progress-bar-container {
+    width: 400px;
+    height: 15px;
+    border: 1px solid var(--neon-cyan); /* Border lebih tipis */
+    margin-top: 20px;
+    padding: 2px;
+    background: #000;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--neon-cyan);
+    transition: width 0.5s ease;
+}
+
+/* ==================== MAIN CONTENT & LAYOUT ==================== */
+#main-content {
+    max-width: 90vw;
+    margin: 0 auto;
+    padding: 2rem 0;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 1.5rem;
+}
+
+/* Glow berlebihan dihapus agar tulisan mudah dibaca */
+.neon-title {
+    font-size: 4.5rem;
+    color: var(--neon-cyan);
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: var(--text-color);
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+}
+
+/* CSS GRID LAYOUT */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Panel Konten: Background solid, border tipis, bayangan dikurangi */
+.cyber-panel {
+    background: var(--panel-bg);
+    border: 1px solid #30363d;
+    border-left: 3px solid var(--neon-blue); /* Aksen hanya di pinggir kiri */
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.panel-directory {
+    grid-column: 1 / -1; 
+    border-left: 3px solid var(--neon-cyan);
+}
+
+.cyber-panel h2 {
+    color: var(--neon-blue);
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 1px dotted #30363d;
+    padding-bottom: 10px;
+}
+
+.panel-directory h2 { color: var(--neon-cyan); }
+
+/* Tombol Menu Grid */
+/* Update Bagian Ini di style.css */
+
+.chapter-menu {
+    display: grid;
+    gap: 15px;
+    /* Default untuk HP: Otomatis (biasanya 1 kolom ke bawah agar terbaca) */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* KHUSUS LAYAR BESAR (Laptop/PC) */
+@media (min-width: 1024px) {
+    .chapter-menu {
+        /* Memaksa menjadi 4 Kolom. */
+        /* Jika ada bab ke-5, dia otomatis turun ke baris baru. */
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+.cyber-button {
+    display: block;
+    padding: 12px 15px;
+    background: #0d1117;
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid #30363d;
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
+}
+
+.cyber-button:hover:not(.locked) {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+    background: rgba(57, 211, 83, 0.05);
+}
+
+.status-open { color: var(--neon-cyan); margin-right: 10px; }
+
+.cyber-button.locked {
+    color: #484f58;
+    background: #090b0f;
+    cursor: not-allowed;
+}
+.status-locked { color: var(--neon-pink); margin-right: 10px; }
+
+footer {
+    text-align: center;
+    color: #484f58;
+    margin-top: 4rem;
+    padding-bottom: 2rem;
+}
+
+/* ==================== BAB 1: KELAS & COMPILER ==================== */
+.chapter-body { overflow: hidden; }
+
+.chapter-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--panel-bg);
+    border-bottom: 1px solid #30363d;
+    height: 60px;
+}
+
+.neon-title-small {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin: 0 0 0 2rem;
+}
+
+.cyber-button-small {
+    padding: 5px 15px;
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid #30363d;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.cyber-button-small:hover {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+}
+
+/* Layout Split Screen */
+.split-container {
+    display: flex;
+    height: calc(100vh - 95px);
+    width: 100vw;
+}
+
+.materi-panel {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background: var(--bg-dark);
+    border-right: 1px solid #30363d;
+}
+
+/* Mission box dibuat lebih elegan, tidak silau */
+.mission-box {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-left: 4px solid var(--neon-blue);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border-radius: 4px;
+}
+
+.mission-box h3 { color: var(--neon-blue); margin-top: 0; }
+.highlight { color: var(--neon-cyan); background: rgba(57,211,83,0.1); padding: 2px 5px; }
+
+.alert-box { border-left-color: var(--neon-yellow); }
+.alert-box h3 { color: var(--neon-yellow); }
+
+.target-output {
+    background: #0d1117;
+    color: var(--text-color);
+    padding: 15px;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+}
+
+/* Panel Code Editor */
+.compiler-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #0d1117;
+}
+
+.editor-header, .terminal-header {
+    background: #161b22;
+    color: var(--text-color);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #30363d;
+}
+
+.cyber-button-run {
+    background: var(--neon-cyan);
+    color: #000;
+    border: none;
+    border-radius: 3px;
+    padding: 6px 15px;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cyber-button-run:hover {
+    background: #46e061;
+}
+
+#code-editor {
+    flex: 2;
+    background: #0d1117;
+    color: #c9d1d9; /* Warna teks standar editor modern (bukan hijau terang) */
+    font-family: 'Courier New', Courier, monospace; /* Font coding sungguhan agar terbaca jelas */
+    font-size: 1.1rem;
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    line-height: 1.6;
+}
+
+#terminal-output {
+    flex: 1;
+    background: #010409;
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    font-size: 1.1rem;
+    overflow-y: auto;
+    border-top: 1px solid #30363d;
+    white-space: pre-wrap;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Scrollbar bersih */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #484f58; }
+
+/* Styling CodeMirror agar pas dengan tema */
+/* Styling CodeMirror agar pas dengan layout Split-Screen */
+.CodeMirror {
+    flex: 2; /* Memberikan porsi ruang 2/3 untuk editor */
+    height: auto !important; /* Mencegah editor mengambil 100% layar dan menutupi terminal */
+    font-size: 1.2rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Indikator Status Misi di Header */
+.mission-status {
+    margin-left: auto; /* Mendorong ke sisi paling kanan */
+    font-weight: bold;
+    padding: 5px 15px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+}
+
+/* ==================== GAMIFIKASI: PROGRESSIVE DISCLOSURE ==================== */
+.locked-section {
+    opacity: 0.15; /* Membuatnya sangat redup */
+    pointer-events: none; /* Mencegah murid memblok teks atau mengklik */
+    filter: grayscale(100%) blur(2px); /* Efek abu-abu dan sedikit buram */
+    transition: all 0.8s ease-in-out; /* Animasi mulus saat terbuka */
+    position: relative;
+    user-select: none;
+}
+
+/* Tulisan Hologram Peringatan */
+.locked-section::after {
+    content: '[ DATA ENCRYPTED - CLEAR PREVIOUS MISSION TO UNLOCK ]';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--neon-pink);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    width: 90%;
+    z-index: 10;
+    text-shadow: 0 0 10px var(--neon-pink);
+    background: rgba(13, 17, 23, 0.8);
+    padding: 10px;
+    border: 1px dashed var(--neon-pink);
+}
+
+/* ==================== MODAL SUCCESS / FORMULIR ==================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.cyber-modal {
+    background: #0d1117;
+    border: 2px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(57, 211, 83, 0.2);
+    padding: 30px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.input-group {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: var(--neon-blue);
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    background: #010409;
+    border: 1px solid #30363d;
+    color: var(--text-color);
+    padding: 10px;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: inset 0 0 5px rgba(57, 211, 83, 0.2);
+}

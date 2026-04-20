@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADVANCE TEST - SISTEM MATRIKS</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .exam-container { display: flex; gap: 20px; margin-top: 20px; align-items: stretch; }
+        .nav-panel { flex: 1; background: rgba(1,4,9,0.8); border: 1px solid var(--neon-cyan); padding: 15px; display: flex; flex-direction: column; }
+        .editor-panel { flex: 2; display: flex; flex-direction: column; }
+        .question-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+        .q-btn { background: transparent; border: 1px solid #30363d; color: white; padding: 10px; cursor: pointer; font-family: 'VT323'; font-size: 1.2rem; transition: 0.3s; }
+        .q-btn.active { border-color: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
+        .q-btn.solved { background: rgba(57, 211, 83, 0.2); border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .timer-box { position: fixed; top: 10px; right: 20px; border: 2px solid #ff003c; background: #000; padding: 5px 15px; font-size: 2rem; color: #ff003c; z-index: 1000; }
+        .neon-red { color: #ff003c; text-shadow: 0 0 10px #ff003c; }
+        .target-box { background: #161b22; padding: 10px; border-left: 3px solid var(--neon-cyan); font-family: monospace; white-space: pre-wrap; margin-top: 10px; color: var(--neon-cyan); }
+        
+        /* OVERLAYS UNTUK ANTI-CHEAT DEWA TIER */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+        }
+        #warning-screen { background: rgba(255, 69, 0, 0.95); color: #000; display: none; }
+        #lockdown-screen { background: rgba(139, 0, 0, 0.98); color: #fff; display: none; }
+        
+        #auth-error, #exam-interface, #result-interface { display: none; }
+    </style>
+</head>
+<body class="index-body">
+    <div class="scanlines"></div>
+
+    <div id="warning-screen" class="overlay">
+        <h1 style="font-size: 4rem; font-family: 'VT323'; margin: 0; color: #000;">[ PERINGATAN SISTEM ]</h1>
+        <h2 style="color: #000;">KAMI MENDETEKSI PERPINDAHAN TAB / APLIKASI.</h2>
+        <p style="font-size: 1.5rem; font-weight: bold; max-width: 600px; color: #111;">
+            Jangan tinggalkan halaman ujian. Jika Anda keluar satu kali lagi, terminal akan DIKUNCI SELAMA 15 MENIT.
+        </p>
+        <button class="cyber-button-run" style="background: #000; color: #ff4500; border-color: #000; margin-top: 20px; font-size: 1.5rem;" onclick="dismissWarning()">SAYA MENGERTI</button>
+    </div>
+
+    <div id="lockdown-screen" class="overlay">
+        <h1 style="font-size: 5rem; font-family: 'VT323'; margin: 0; color: #fff;">[ PELANGGARAN FATAL ]</h1>
+        <h2 style="color: #ff003c; text-shadow: 1px 1px 0 #fff; font-size: 2rem;">MULTIPLE TAB SWITCHING LOGGED.</h2>
+        <div id="lock-timer" style="font-size: 8rem; font-family: 'VT323'; margin: 20px 0; color: #fff; text-shadow: 0 0 20px #000;">15:00</div>
+        <p style="font-size: 1.5rem; font-weight: bold; color: #ccc;">TERMINAL LOCKED. REFRESH HALAMAN TIDAK AKAN MERESET TIMER INI.</p>
+        <button onclick="forceReset()" style="margin-top: 40px; background: transparent; color: #ff003c; border: none; cursor: pointer; opacity: 0.3;">[ Dev Override ]</button>
+    </div>
+
+    <main id="auth-error" class="container" style="text-align: center; margin-top: 100px;">
+        <h1 class="neon-red" style="font-size: 4rem;">[ AKSES DITOLAK ]</h1>
+        <p style="font-size: 1.5rem; color: #8b949e;">Anda belum menyelesaikan BAB 6. Akses Advance Test terkunci.</p>
+        <button class="cyber-button-run" style="margin-top: 20px;" onclick="window.location.href='index.html'">KEMBALI KE TERMINAL UTAMA</button>
+    </main>
+
+    <main id="exam-interface" class="container" style="max-width: 1400px; padding: 20px;">
+        <div id="timer-display" class="timer-box">90:00</div>
+        <header style="text-align: center; border-bottom: 1px dashed #30363d; padding-bottom: 10px;">
+            <h1 class="neon-red" style="font-size: 3rem; margin:0;">PROTOKOL: ADVANCE TEST (BAB 4-6)</h1>
+            <p style="color: var(--neon-cyan); font-size: 1.2rem;">AGEN: <span id="display-agent" style="font-weight:bold; text-transform:uppercase;"></span> | VIOLATIONS: <span id="violation-count" style="color: var(--neon-pink);">0</span></p>
+        </header>
+
+        <div class="exam-container">
+            <div class="nav-panel">
+                <h3 style="color: var(--neon-cyan); text-align: center; margin-top:0;">[ DATABASE_SOAL ]</h3>
+                <div class="question-grid" id="q-grid"></div>
+                <div style="flex: 1; border-top: 1px dashed #30363d; padding-top: 15px;">
+                    <h2 id="q-title" style="color: var(--neon-blue); margin: 0;">Soal 1</h2>
+                    <p id="q-desc" style="font-size: 1.2rem; color: #c9d1d9;">Deskripsi...</p>
+                    <p style="color: #8b949e; font-size: 1.1rem; margin-top: 20px;">> TARGET OUTPUT:</p>
+                    <div id="q-target" class="target-box">Target...</div>
+                </div>
+                <button class="cyber-button-run" style="background: #ff003c; color: white; border: none; margin-top: 15px;" onclick="submitExam()">[ AKHIRI UJIAN & TRANSMIT ]</button>
+            </div>
+
+            <div class="editor-panel">
+                <div class="editor-header">
+                    <span>[ terminal_ujian.cpp ]</span>
+                    <button id="run-btn" class="cyber-button-run" onclick="runCode()">RUN & EVALUASI</button>
+                </div>
+                <textarea id="code-editor"></textarea>
+                <div class="terminal-header"><span>> Output Sistem</span></div>
+                <pre id="terminal-output">Menunggu eksekusi kode...</pre>
+                <div id="eval-status" style="padding: 10px; text-align: center; font-family: 'VT323'; font-size: 1.5rem; background: #000; color: #8b949e;">Status: Belum Dievaluasi</div>
+            </div>
+        </div>
+    </main>
+
+    <main id="result-interface" class="container" style="text-align: center; margin-top: 100px;">
+        <h2>[ TRANSMISI SELESAI ]</h2>
+        <h1 id="score-display" style="font-size: 8rem; color: var(--neon-cyan); margin: 20px 0; text-shadow: 0 0 20px var(--neon-cyan);">0</h1>
+        <p id="upload-status" style="color: var(--neon-yellow); font-size: 1.2rem;">> Mengunggah nilai...</p>
+        <button id="btn-home" class="cyber-button-run" style="display: none; margin-top: 30px;" onclick="window.location.href='index.html'">[ KEMBALI KE TERMINAL ]</button>
+    </main>
+
+    <script>
+        // PENTING: GANTI DENGAN URL SPREADSHEET ANDA
+        const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzfuEmC-SCZLKu3d7eFGn14Av6p2kXFuUVt71WdaxbMgIYaVL1_qJn3bFvPNC0Odun1Ig/exec"; 
+
+        const starterCode = "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Tulis logikamu di sini:\n    \n    \n    return 0;\n}";
+        
+        // Soal Khusus Advance Test
+        const questions = [
+            { title: "Percabangan Dasar", desc: "Buat int sinyal = 404. Jika sinyal == 404, cetak 'Error'. Jika tidak, cetak 'Aman'.", target: "Error" },
+            { title: "Ganjil Genap", desc: "Buat int kode = 7. Gunakan if-else dan modulo (%) untuk mengecek. Cetak 'Ganjil' atau 'Genap'.", target: "Ganjil" },
+            { title: "For Loop Ascending", desc: "Gunakan for loop untuk mencetak angka 1 sampai 4 ke bawah.", target: "1\n2\n3\n4" },
+            { title: "For Loop Descending", desc: "Gunakan for loop mundur untuk mencetak 5, 4, 3 ke bawah.", target: "5\n4\n3" },
+            { title: "Akses Array", desc: "Buat array int data[4] = {10, 20, 30, 40}. Cetak angka 30 dengan memanggil indeks yang tepat.", target: "30" },
+            { title: "Loop Array", desc: "Buat array int node[3] = {5, 10, 15}. Gunakan for loop untuk mencetaknya ke bawah.", target: "5\n10\n15" },
+            { title: "Total Array", desc: "Diberikan array {1, 2, 3, 4}. Hitung total semuanya menggunakan loop dan cetak nilai totalnya.", target: "10" },
+            { title: "Nilai Maksimum", desc: "Diberikan array {12, 45, 7, 89, 23}. Buat program pencari nilai terbesar menggunakan loop dan percabangan, lalu cetak hasilnya.", target: "89" },
+            { title: "Filter Array", desc: "Diberikan array {5, 15, 8, 20}. Gunakan loop dan if untuk HANYA mencetak angka yang lebih besar dari 10 ke bawah.", target: "15\n20" },
+            { title: "Kotak Bintang", desc: "Gunakan Nested Loop (for di dalam for) untuk mencetak kotak bintang ukuran 2 baris dan 2 kolom (2x2).", target: "**\n**" }
+        ];
+
+        let currentQIndex = 0;
+        let userCodes = new Array(10).fill(starterCode);
+        let solvedStatus = new Array(10).fill(false);
+        
+        let examTimerInterval, lockTimerInterval;
+        let examEndTime = 0;
+        let lockEndTime = 0;
+        let agentName = "";
+        let violations = 0;
+        let isExamActive = false;
+        let isWarningOpen = false;
+        let isLocked = false;
+        let lastPenaltyTime = 0;
+        let editor;
+
+        window.onload = function() {
+            agentName = sessionStorage.getItem("agentName");
+            let rawMisi = sessionStorage.getItem("misiAgen");
+            let misiAgen = rawMisi ? JSON.parse(rawMisi) : [];
+            
+            // Otorisasi: Harus login dan lulus BAB 6
+            if(agentName && misiAgen.includes("BAB 6")) {
+                document.getElementById("exam-interface").style.display = "block";
+                document.getElementById("display-agent").innerText = agentName;
+                
+                // Inisialisasi Editor
+                editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+                    lineNumbers: true, mode: "text/x-c++src", theme: "monokai", indentUnit: 4, matchBrackets: true
+                });
+                editor.on('change', () => { userCodes[currentQIndex] = editor.getValue(); });
+
+                buildNavButtons();
+                loadQuestion(0);
+                
+                // Setup Ujian
+                violations = parseInt(localStorage.getItem("advance_violations")) || 0;
+                document.getElementById("violation-count").innerText = violations;
+
+                // Set Waktu Ujian (90 Menit)
+                if (!localStorage.getItem("advance_examEnd")) {
+                    examEndTime = Date.now() + (5400 * 1000);
+                    localStorage.setItem("advance_examEnd", examEndTime.toString());
+                } else {
+                    examEndTime = parseInt(localStorage.getItem("advance_examEnd"));
+                }
+                
+                startExamTimer();
+
+                // Cek apakah sedang dalam masa lockdown
+                let savedLockEnd = parseInt(localStorage.getItem("advance_lockEnd")) || 0;
+                if (savedLockEnd > Date.now()) {
+                    lockEndTime = savedLockEnd;
+                    resumeLockdown();
+                }
+
+                // Nyalakan sensor Anti-Cheat setelah 3 detik
+                setTimeout(() => {
+                    isExamActive = true;
+                    document.addEventListener('visibilitychange', handleVisibilityChange);
+                    window.addEventListener('blur', handleWindowBlur);
+                }, 3000);
+
+            } else {
+                document.getElementById("auth-error").style.display = "block";
+            }
+        };
+
+        function buildNavButtons() {
+            const grid = document.getElementById("q-grid");
+            grid.innerHTML = "";
+            for(let i=0; i<10; i++) {
+                grid.innerHTML += `<button id="btn-q${i}" class="q-btn" onclick="loadQuestion(${i})">${i+1}</button>`;
+            }
+        }
+
+        function loadQuestion(index) {
+            document.getElementById(`btn-q${currentQIndex}`).classList.remove('active');
+            currentQIndex = index;
+            document.getElementById(`btn-q${currentQIndex}`).classList.add('active');
+            document.getElementById("q-title").innerText = `SOAL 0${index+1}: ${questions[index].title}`;
+            document.getElementById("q-desc").innerText = questions[index].desc;
+            document.getElementById("q-target").innerText = questions[index].target;
+            
+            editor.setValue(userCodes[index]);
+            
+            const statusBox = document.getElementById("eval-status");
+            statusBox.innerText = solvedStatus[index] ? "STATUS: LULUS (Telah Dipecahkan)" : "STATUS: Belum Dievaluasi";
+            statusBox.style.color = solvedStatus[index] ? "var(--neon-cyan)" : "#8b949e";
+            document.getElementById("terminal-output").innerText = "Menunggu eksekusi kode...";
+        }
+
+        async function runCode() {
+            if(isLocked || isWarningOpen) return;
+
+            const runBtn = document.getElementById("run-btn");
+            const termOut = document.getElementById("terminal-output");
+            const statusBox = document.getElementById("eval-status");
+            
+            runBtn.disabled = true; runBtn.innerText = "COMPILING...";
+            termOut.style.color = "var(--neon-yellow)"; termOut.innerText = "Mengeksekusi...";
+            
+            try {
+                const response = await fetch("https://wandbox.org/api/compile.json", {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ code: editor.getValue(), compiler: "gcc-head", save: false })
+                });
+                const data = await response.json();
+                runBtn.disabled = false; runBtn.innerText = "RUN & EVALUASI";
+                
+                if (data.status !== "0") {
+                    termOut.style.color = "var(--neon-pink)"; termOut.innerText = data.compiler_error;
+                    statusBox.innerText = "STATUS: SYNTAX ERROR"; statusBox.style.color = "var(--neon-pink)"; return;
+                }
+
+                const output = data.program_message ? data.program_message.trimEnd().replace(/\r\n/g, '\n') : "";
+                termOut.style.color = "white"; termOut.innerText = output;
+                
+                const target = questions[currentQIndex].target.replace(/\r\n/g, '\n');
+                if(output === target || output.replace(/\s+/g, ' ').trim() === target.replace(/\s+/g, ' ').trim()) {
+                    solvedStatus[currentQIndex] = true;
+                    document.getElementById(`btn-q${currentQIndex}`).classList.add('solved');
+                    statusBox.innerText = "STATUS: JAWABAN BENAR! (LULUS)"; statusBox.style.color = "var(--neon-cyan)";
+                } else {
+                    statusBox.innerText = "STATUS: OUTPUT BELUM COCOK"; statusBox.style.color = "var(--neon-yellow)";
+                }
+            } catch (err) {
+                runBtn.disabled = false; runBtn.innerText = "RUN"; termOut.innerText = "Koneksi Terputus.";
+            }
+        }
+
+        // --- SISTEM ANTI CHEAT (DEWA TIER LOGIC) ---
+        function handleVisibilityChange() { if (document.hidden && isExamActive) applyPenalty(); }
+        function handleWindowBlur() { if (isExamActive) applyPenalty(); }
+
+        function applyPenalty() {
+            let now = Date.now();
+            if (now - lastPenaltyTime < 1000) return; // Mencegah double trigger
+            lastPenaltyTime = now;
+
+            violations++;
+            localStorage.setItem("advance_violations", violations.toString());
+            document.getElementById("violation-count").innerText = violations;
+
+            if (violations === 1) {
+                isWarningOpen = true;
+                document.getElementById("warning-screen").style.display = "flex";
+            } else {
+                if(isWarningOpen) document.getElementById("warning-screen").style.display = "none";
+                isWarningOpen = false;
+                
+                lockEndTime = Date.now() + (900 * 1000); // 15 Menit Lockdown
+                localStorage.setItem("advance_lockEnd", lockEndTime.toString());
+                resumeLockdown(); 
+            }
+        }
+
+        function dismissWarning() {
+            document.getElementById("warning-screen").style.display = "none";
+            isWarningOpen = false;
+        }
+
+        function resumeLockdown() {
+            isLocked = true;
+            document.getElementById("lockdown-screen").style.display = "flex";
+            clearInterval(lockTimerInterval); 
+            updateLockTimerDisplay();
+
+            lockTimerInterval = setInterval(() => {
+                updateLockTimerDisplay();
+                if(Date.now() >= lockEndTime) {
+                    clearInterval(lockTimerInterval);
+                    document.getElementById("lockdown-screen").style.display = "none";
+                    isLocked = false;
+                    localStorage.removeItem("advance_lockEnd"); 
+                }
+            }, 1000);
+        }
+
+        function updateLockTimerDisplay() {
+            let timeLeft = Math.max(0, Math.floor((lockEndTime - Date.now()) / 1000));
+            let m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            let s = (timeLeft % 60).toString().padStart(2, '0');
+            document.getElementById('lock-timer').innerText = `${m}:${s}`;
+        }
+
+        function forceReset() {
+            localStorage.removeItem("advance_violations");
+            localStorage.removeItem("advance_examEnd");
+            localStorage.removeItem("advance_lockEnd");
+            alert("Dev Override: Sistem dibersihkan.");
+            window.location.reload();
+        }
+
+        // --- EXAM TIMER ---
+        function startExamTimer() {
+            examTimerInterval = setInterval(() => {
+                let timeLeft = Math.max(0, Math.floor((examEndTime - Date.now()) / 1000));
+                
+                let m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+                let s = (timeLeft % 60).toString().padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${m}:${s}`;
+                
+                if(timeLeft <= 180) document.getElementById("timer-display").style.animation = "pulse-red 0.5s infinite";
+
+                if(timeLeft <= 0) {
+                    alert("WAKTU HABIS!");
+                    submitExam(); 
+                }
+            }, 1000);
+        }
+
+        // --- PENGIRIMAN HASIL ---
+        async function submitExam() {
+            isExamActive = false;
+            clearInterval(examTimerInterval);
+            clearInterval(lockTimerInterval);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('blur', handleWindowBlur);
+
+            // Bersihkan memori ujian
+            localStorage.removeItem("advance_violations");
+            localStorage.removeItem("advance_examEnd");
+            localStorage.removeItem("advance_lockEnd");
+
+            document.getElementById("exam-interface").style.display = "none";
+            document.getElementById("warning-screen").style.display = "none";
+            document.getElementById("lockdown-screen").style.display = "none";
+            document.getElementById("result-interface").style.display = "block";
+
+            let score = solvedStatus.filter(Boolean).length * 10;
+            const scoreObj = document.getElementById("score-display");
+            scoreObj.innerText = score;
+            if(score < 70) { scoreObj.style.color = "var(--neon-pink)"; scoreObj.style.textShadow = "0 0 20px var(--neon-pink)"; }
+
+            const statusBox = document.getElementById("upload-status");
+            try {
+                // Bab diset ke ADVANCE TEST
+                await fetch(SPREADSHEET_URL, {
+                    method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({ nama: agentName, kelas: "N/A", bab: "ADVANCE TEST", nilai: score.toString() })
+                });
+                statusBox.innerText = "> TRANSMISI BERHASIL. NILAI TEREKAM DI SERVER PUSAT.";
+                statusBox.style.color = "var(--neon-cyan)";
+            } catch(e) {
+                statusBox.innerText = "> GAGAL TERHUBUNG KE SERVER. SCREENSHOT HASIL INI.";
+                statusBox.style.color = "var(--neon-pink)";
+            }
+            document.getElementById("btn-home").style.display = "inline-block";
+        }
+    </script>
+</body>
+</html>
